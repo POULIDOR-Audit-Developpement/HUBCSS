@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+examples/minimal-react/dist/
+
+# Generated demo assets
+examples/minimal-react/public/design-system/icons/lucide.svg
+
+# Local caches
+.mypy_cache/
+examples/minimal-react/.vite/
+
+# Logs and packaged artifacts
+*.log
+*.tgz
+
+# OS files
+.DS_Store
+Thumbs.db

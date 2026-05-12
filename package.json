@@ -1,0 +1,80 @@
+{
+  "name": "@poutchouli/design-system",
+  "version": "0.1.0",
+  "description": "Local-first Tailwind CSS v4 design system with Lucide SVG sprites.",
+  "keywords": [
+    "design-system",
+    "css",
+    "tailwindcss",
+    "react",
+    "icons",
+    "local-first",
+    "hubcss"
+  ],
+  "author": "Poutchouli",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "homepage": "https://github.com/POULIDOR-Audit-Developpement/HUBCSS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/POULIDOR-Audit-Developpement/HUBCSS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/POULIDOR-Audit-Developpement/HUBCSS/issues"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "src/styles",
+    "src/icons/icons.manifest.json",
+    "README.md",
+    "LICENSE.md",
+    "NOTICE.md"
+  ],
+  "exports": {
+    ".": "./dist/global.css",
+    "./source.css": "./src/styles/global.css",
+    "./fonts.css": "./dist/fonts.css",
+    "./icons.svg": "./dist/icons/lucide.svg",
+    "./react": {
+      "types": "./dist/react/Icon.d.ts",
+      "default": "./dist/react/Icon.js"
+    },
+    "./icons.manifest.json": "./src/icons/icons.manifest.json"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "npm run clean && npm run build:css && npm run build:icons && npm run build:react && npm run check:offline && npm run check:budgets",
+    "build:css": "node scripts/build-css.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "build:react": "node scripts/build-react.mjs",
+    "check:offline": "node scripts/check-offline.mjs",
+    "check:budgets": "node scripts/check-budgets.mjs",
+    "example:prepare": "node scripts/copy-example-assets.mjs",
+    "demo:prepare": "npm run example:prepare",
+    "demo:build": "npm run demo:prepare && npm --prefix examples/minimal-react run build",
+    "demo:dev": "npm run demo:prepare && npm --prefix examples/minimal-react run dev",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "lucide-static": "^0.460.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "packageManager": "npm@10"
+}
