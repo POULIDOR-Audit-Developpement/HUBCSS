@@ -18,7 +18,7 @@ HUBCSS is ready for public source distribution on GitHub. The package already
 supports local registry workflows and can also be consumed from a tarball or a
 Git checkout while the publication strategy evolves.
 
-Public source repository: https://github.com/POULIDOR-Audit-Developpement/HUBCSS
+Public source repository: <https://github.com/POULIDOR-Audit-Developpement/HUBCSS>
 
 ## Install
 
@@ -121,6 +121,7 @@ CDN domains.
 
 ## Documentation
 
+- `docs/HOW2USE.md` explains how applications retrieve and integrate HUBCSS.
 - `docs/DEMO.md` covers the reference validation flow.
 - `docs/LOCAL_ASSETS.md` explains package mode and shared asset serving.
 - `docs/PERFORMANCE.md` documents the current bundle budgets.
