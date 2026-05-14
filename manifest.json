@@ -1,0 +1,31 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-05-14T10:05:03.523Z",
+  "files": [
+    {
+      "path": "fonts.css",
+      "size": 217,
+      "sha256": "d9cfd8dd8b55f5b3191a4ca67b49a84133f66edda1166bb2ac07f30ed5670e4f"
+    },
+    {
+      "path": "global.css",
+      "size": 14873,
+      "sha256": "54fab1f997222b17575b6168c4436ee5d319b29d17821ae306acb26b7f60a2c5"
+    },
+    {
+      "path": "icons/lucide.svg",
+      "size": 8042,
+      "sha256": "a238b3a087074e14f641712111b37f374a818433c35359fcc5096b5319f6dcee"
+    },
+    {
+      "path": "react/Icon.d.ts",
+      "size": 323,
+      "sha256": "355944f4cd46574a816e2992ce6932d7a440ec8dca7e461a31bf967c50f6201b"
+    },
+    {
+      "path": "react/Icon.js",
+      "size": 842,
+      "sha256": "bb4ee4363aaefb0134554060cf49f80084002fab63b50a9ee3d9185067b53605"
+    }
+  ]
+}

@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 /**
- * Empaquette le dossier dist/ en dist.tar.gz + manifest.json prêts à l'upload
- * dans l'admin HUB ("Design System").
+ * Empaquette le dossier dist/ en dist.tar.gz autosuffisant + manifest.json
+ * sidecar prêts à l'upload dans l'admin HUB ("Design System").
  *
  * - Aucun téléchargement réseau, 100% local.
  * - manifest.json contient : version (depuis package.json), liste des fichiers
  *   avec sha256 hex et taille.
- * - L'archive .tar.gz contient le contenu de dist/ (sans le préfixe "dist/").
+ * - L'archive .tar.gz contient le contenu de dist/ (sans le préfixe "dist/")
+ *   ET une copie de manifest.json à la racine, requise par le validateur Hub
+ *   (`hub/app/services/design_system.py::extract_tarball`).
+ * - Le sidecar manifest.json à la racine du repo est conservé pour le debug
+ *   et les diffs Git.
  *
  * Usage : `npm run pack` → produit dist.tar.gz et manifest.json à la racine.
  */
@@ -102,9 +106,22 @@ async function main() {
     })
   }
 
+  // Sérialiser le manifest une seule fois (octets identiques entre tar et sidecar)
+  const manifestBuf = Buffer.from(JSON.stringify(manifest, null, 2) + '\n', 'utf8')
+
   // Écrire l'archive tar non compressée → pipée dans gzip
   const tarPath = tarballOut + '.tmp.tar'
   const tarStream = createWriteStream(tarPath)
+
+  // 1) manifest.json à la racine — requis par le Hub
+  tarStream.write(tarHeader('manifest.json', manifestBuf.length, Date.now()))
+  tarStream.write(manifestBuf)
+  {
+    const pad = (512 - (manifestBuf.length % 512)) % 512
+    if (pad) tarStream.write(Buffer.alloc(pad, 0))
+  }
+
+  // 2) Fichiers de dist/ (sans préfixe dist/)
   for (const f of files) {
     const rel = relative(distDir, f).split(sep).join('/')
     const st = statSync(f)
@@ -125,7 +142,7 @@ async function main() {
   await pipeline(createReadStream(tarPath), createGzip({ level: 9 }), createWriteStream(tarballOut))
   await rm(tarPath, { force: true })
 
-  await writeFile(manifestOut, JSON.stringify(manifest, null, 2) + '\n', 'utf8')
+  await writeFile(manifestOut, manifestBuf, 'utf8')
 
   const tarSize = statSync(tarballOut).size
   console.log(`✅ ${relative(root, tarballOut)} (${(tarSize / 1024).toFixed(1)} KB)`)
