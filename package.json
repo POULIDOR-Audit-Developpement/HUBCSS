@@ -53,6 +53,7 @@
     "build:react": "node scripts/build-react.mjs",
     "check:offline": "node scripts/check-offline.mjs",
     "check:budgets": "node scripts/check-budgets.mjs",
+    "pack": "npm run build && node scripts/pack-dist.mjs",
     "example:prepare": "node scripts/copy-example-assets.mjs",
     "demo:prepare": "npm run example:prepare",
     "demo:build": "npm run demo:prepare && npm --prefix examples/minimal-react run build",
